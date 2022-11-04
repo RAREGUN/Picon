@@ -17,7 +17,7 @@
         <Image Grid.Row="0" Grid.Column="0" x:Name="MainImage" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform ScaleX="0.9" ScaleY="0.9"/>
+                    <ScaleTransform ScaleX="0.934679262589549" ScaleY="0.934679262589549"/>
                     <SkewTransform/>
                     <RotateTransform/>
                     <TranslateTransform/>

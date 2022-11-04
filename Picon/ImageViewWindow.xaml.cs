@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +22,8 @@ namespace Picon
         private Vector ImageRealResolution { get; set; }
 
         private double ScaleDelta { get; set; }
-        private double Scale { get; set; } = 0.9f;
+        private double Scale { get; set; } = 0.934679262589549f;
+        private int ScaleStep { get; set; } = 38;
         private Point ScalePosition { get; set; }
 
         private bool Drag { get; set; }
@@ -164,30 +164,23 @@ namespace Picon
 
             Update();
         }
-
-        private double GetNextScale(bool increase)
+        
+        private double GetNextScale(bool decrease)
         {
-            const double minScale = 0.1f;
-            const double maxScale = 10f;
-            double modifer = 0.1f;
-            double result = Scale;
+            const int scaleStepsCount = 50; // 0 -> scaleStepsCount (including, (scaleStepsCount + 1) total)
+            const double minScale = 10f;
+            const double maxScale = 0.25f;
             
-            Debug.WriteLine($"### GetNextScale({increase}) mod({modifer}) scale({Scale}) scalePos({ScalePosition})");
+            double result = Scale;
 
-            if (increase)
-            {
-                result += modifer;
-            }
-            else
-            {
-                result -= modifer;
-            }
+            if (ScaleStep == 0 && decrease || ScaleStep == scaleStepsCount && !decrease)
+                return result;
+            
+            ScaleStep += decrease ? -1 : 1;
 
-            if (result < minScale)
-                result = minScale;
-
-            if (result > maxScale)
-                result = maxScale;
+            double x = (double) ScaleStep / scaleStepsCount;
+            double ease = Math.Sin(x * Math.PI / 2); // easeOutSine function
+            result = minScale + (maxScale - minScale) * ease; // simply lerp from minScale to maxScale by result modifer
 
             return result;
         }
