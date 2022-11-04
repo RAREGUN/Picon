@@ -47,9 +47,12 @@ namespace Picon
             
             if (!CheckInput(imagePath) || !ProcessInput(imagePath))
                 imagePath = RequestPath();
-            
+
             if (!CheckInput(imagePath) || !ProcessInput(imagePath))
+            {
                 Close();
+                return;
+            }
             
             ProcessImage();
         }
