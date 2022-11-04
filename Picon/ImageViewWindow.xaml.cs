@@ -189,5 +189,10 @@ namespace Picon
         {
             Close();
         }
+
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

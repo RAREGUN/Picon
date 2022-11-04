@@ -4,7 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="500" WindowStartupLocation="Manual" AllowsTransparency="True" WindowStyle="None" Opacity="0" Foreground="{x:Null}" Background="#01000000" WindowState="Maximized" ResizeMode="NoResize">
+        Title="MainWindow" Height="500" Width="500" WindowStartupLocation="Manual" AllowsTransparency="True" WindowStyle="None" Opacity="1" Foreground="{x:Null}" Background="#60000000" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Media/Icons/IconsDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -24,5 +31,45 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50px"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50px"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Row="0" Grid.Column="1" Click="OnCloseButtonClick">
+                <Image RenderTransformOrigin="0.5,0.5" Source="{StaticResource closeDrawingImage}" Opacity="0.75">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="0.5" ScaleY="0.5"></ScaleTransform>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#60000000"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
