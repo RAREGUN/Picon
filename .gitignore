@@ -2,6 +2,7 @@
 bin/
 obj/
 /packages/
+other/
 riderModule.iml
 /_ReSharper.Caches/
 *.sln.DotSettings.user
