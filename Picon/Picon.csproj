@@ -47,23 +47,19 @@
         <Reference Include="PresentationFramework" />
     </ItemGroup>
     <ItemGroup>
-        <ApplicationDefinition Include="App.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </ApplicationDefinition>
-        <Page Include="ImageViewWindow.xaml">
-            <Generator>MSBuild:Compile</Generator>
-            <SubType>Designer</SubType>
-        </Page>
-        <Compile Include="App.xaml.cs">
-            <DependentUpon>App.xaml</DependentUpon>
-            <SubType>Code</SubType>
+        <Compile Include="Source\App.xaml.cs">
+          <DependentUpon>App.xaml</DependentUpon>
+          <SubType>Code</SubType>
         </Compile>
-        <Compile Include="ImageViewWindow.xaml.cs">
-            <DependentUpon>ImageViewWindow.xaml</DependentUpon>
-            <SubType>Code</SubType>
+        <Compile Include="Source\Windows\ImageViewWindow.xaml.cs">
+          <DependentUpon>ImageViewWindow.xaml</DependentUpon>
+          <SubType>Code</SubType>
         </Compile>
         <Page Include="Media\Icons\IconsDictionary.xaml" />
+        <Page Include="Source\Windows\ImageViewWindow.xaml">
+          <Generator>MSBuild:Compile</Generator>
+          <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
@@ -83,8 +79,15 @@
         <None Include="App.config" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include=".gitignore" />
       <Content Include="Media\.gitignore" />
       <Content Include="Media\Icons\README.md" />
+    </ItemGroup>
+    <ItemGroup>
+      <ApplicationDefinition Include="Source\App.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <SubType>Designer</SubType>
+      </ApplicationDefinition>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
