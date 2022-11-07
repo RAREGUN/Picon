@@ -1,10 +1,17 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
+using Picon.Subscripts;
 
 namespace Picon
 {
     public partial class App : Application
     {
+        public static readonly DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        public static readonly string WorkingDirectory = Directory.GetCurrentDirectory();
+        public static readonly string LogPath = WorkingDirectory + "\\logs";
+        
         private static App _instance;
         public static App Instance
         {
@@ -13,7 +20,7 @@ namespace Picon
             {
                 if (_instance != null)
                 {
-                    Debug.WriteLine("#0_ERR Singleton not null!");
+                    DC.L("#0_ERR Singleton not null!");
                     return;
                 }
 
@@ -25,6 +32,10 @@ namespace Picon
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            Stopwatch s = Stopwatch.StartNew();
+            DC.L($"OnStartup() called with {(e.Args.Length > 0 ? string.Join(", ", e.Args) : "no")} args!");
+            DC.L($"Log init in: {DC.Time(s)}!");
+            
             Instance = this;
 
             if (e.Args.Length > 0)

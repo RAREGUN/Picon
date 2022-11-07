@@ -51,6 +51,8 @@
           <DependentUpon>App.xaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Include="Source\Subscripts\DC.cs" />
+        <Compile Include="Source\Subscripts\Logger.cs" />
         <Compile Include="Source\Windows\ImageViewWindow.xaml.cs">
           <DependentUpon>ImageViewWindow.xaml</DependentUpon>
           <SubType>Code</SubType>
