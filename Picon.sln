@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picon", "Picon\Picon.csproj", "{0833C4A6-4793-405B-BC30-721E523143A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiconLauncher", "PiconLauncher\PiconLauncher.csproj", "{583E74A0-FDD6-492A-951F-EA219CDE4EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiconLibrary", "PiconLibrary\PiconLibrary.csproj", "{396323D9-9823-4C2B-9ADA-01DB7E981115}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{0833C4A6-4793-405B-BC30-721E523143A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0833C4A6-4793-405B-BC30-721E523143A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0833C4A6-4793-405B-BC30-721E523143A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{583E74A0-FDD6-492A-951F-EA219CDE4EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{583E74A0-FDD6-492A-951F-EA219CDE4EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{583E74A0-FDD6-492A-951F-EA219CDE4EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{583E74A0-FDD6-492A-951F-EA219CDE4EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{396323D9-9823-4C2B-9ADA-01DB7E981115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{396323D9-9823-4C2B-9ADA-01DB7E981115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{396323D9-9823-4C2B-9ADA-01DB7E981115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{396323D9-9823-4C2B-9ADA-01DB7E981115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

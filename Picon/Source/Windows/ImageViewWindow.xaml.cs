@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Picon.Subscripts;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace Picon
 {
@@ -15,7 +15,6 @@ namespace Picon
     {
         private Point WorkingScreenDimensions { get; set; }
 
-        private OpenFileDialog OpenFileDialogInstance { get; set; }
         private BitmapImage BitmapImageInstance { get; set; }
         private Vector ImageNativeResolution { get; set; }
         private double ImageConstantScale { get; set; }
@@ -34,63 +33,33 @@ namespace Picon
         public ImageViewWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+            
             Initialize();
         }
 
         private void Initialize()
         {
             KeyDown += HandleEsc;
+            Topmost = true;
 
             WorkingScreenDimensions = new Point(SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight);
+            PiconViewerBridge.OnPiconViewerInitialized(OpenFile);
+        }
 
-            string imagePath = App.Instance.ImagePath;
-            
-            if (!CheckInput(imagePath) || !ProcessInput(imagePath))
-                imagePath = RequestPath();
-
-            if (!CheckInput(imagePath) || !ProcessInput(imagePath))
-            {
-                Close();
+        private void OpenFile(string imagePath)
+        {
+            if (string.IsNullOrWhiteSpace(imagePath) || !File.Exists(imagePath))
                 return;
-            }
+            
+            Uri imageUri = new Uri(imagePath);
+            BitmapImageInstance = new BitmapImage(imageUri);
             
             ProcessImage();
-        }
-
-        private bool CheckInput(string path)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-                return false;
-            
-            if (!File.Exists(path))
-                return false;
-
-            return true;
-        }
-
-        private bool ProcessInput(string path)
-        {
-            Uri imageUri = new Uri(path);
-            BitmapImageInstance = new BitmapImage(imageUri);
-
-            return true;
-        }
-        
-        private string RequestPath()
-        {
-            if (OpenFileDialogInstance == null)
-            {
-                OpenFileDialogInstance = new OpenFileDialog
-                {
-                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    Filter = "*.PNG;*.JPG;*.BMP;*.ICO|*.PNG;*.JPG;*.BMP;*.ICO"
-                };
-            }
-
-            if (OpenFileDialogInstance.ShowDialog() != true)
-                return string.Empty;
-
-            return OpenFileDialogInstance.FileName;
         }
 
         private void ProcessImage()
@@ -102,6 +71,7 @@ namespace Picon
             MainImage.Source = BitmapImageInstance;
 
             Opacity = 1;
+            WindowState = WindowState.Maximized;
         }
         
         private void Update()
@@ -137,7 +107,7 @@ namespace Picon
         private void HandleEsc(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
-                Close();
+                OnImageClosed();
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
@@ -217,14 +187,20 @@ namespace Picon
             return result;
         }
 
+        private void OnImageClosed()
+        {
+            Opacity = 0;
+            WindowState = WindowState.Minimized;
+        }
+
         private void OnBackgroundButtonClick(object sender, RoutedEventArgs e)
         {
-            Close();
+            OnImageClosed();
         }
 
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
-            Close();
+            OnImageClosed();
         }
     }
 }

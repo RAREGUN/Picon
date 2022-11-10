@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace Picon.Subscripts
+namespace PiconLibrary.Source
 {
     public static class Logger
     {
         private const string LogFileExtension = ".log";
+        private static bool Initialized { get; set; }
+        private static string LogPath { get; set; }
 
-        static Logger()
+        // TODO log tags for multiple sources
+        public static void Initialize(string workingDirectory, string logDirectoryName)
         {
-            Directory.CreateDirectory(App.LogPath);
+            if (Initialized)
+            {
+                Debug.WriteLine("Logger was initialized before!");
+                return;
+            }
             
-            string latestPath = App.LogPath + "\\latest" + LogFileExtension;
+            if (!Directory.Exists(workingDirectory))
+                throw new Exception("Logger must be initialized with proper working directory!");
+
+            Initialized = true;
+            
+            LogPath = workingDirectory + "\\" + logDirectoryName;
+            
+            Directory.CreateDirectory(LogPath);
+            
+            string latestPath = LogPath + "\\latest" + LogFileExtension;
             
             if (File.Exists(latestPath))
             {
@@ -24,10 +40,10 @@ namespace Picon.Subscripts
                 fileLinesEnumerator.Dispose();
 
                 string name = string.IsNullOrWhiteSpace(dateName)
-                    ? "\\corrupted_" + (int) (DateTime.Now - App.Epoch).TotalSeconds
+                    ? "\\corrupted_" + (int) (DateTime.Now - MicroUtils.Epoch).TotalSeconds
                     : dateName;
 
-                File.Move(latestPath, App.LogPath + "\\" + name + LogFileExtension);
+                File.Move(latestPath, LogPath + "\\" + name + LogFileExtension);
                 
                 // TODO clear very old logs
             }
@@ -41,7 +57,7 @@ namespace Picon.Subscripts
                 
             try
             {
-                logFile = File.AppendText(App.LogPath + "\\latest" + LogFileExtension);
+                logFile = File.AppendText(LogPath + "\\latest" + LogFileExtension);
                 logFile.WriteLine(text);
             }
             catch (Exception e)

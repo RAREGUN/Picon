@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Picon.Subscripts
+namespace PiconLibrary.Source
 {
     public static class DC
     {
